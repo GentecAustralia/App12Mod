@@ -25,13 +25,13 @@ class StockPicking(models.Model):
             for order_line in order_line_ids:
                 order_line .write({'qty_to_invoice':pick_line.product_uom_qty,'invoice_lines':[(4,inv_line.id)]})
 
-            tax_ids = []
-            if order_line and order_line_ids[0]:
-                for tax in order_line[0].tax_id:
-                    tax_ids.append(tax.id)
+                tax_ids = []
+                if order_line and order_line_ids[0]:
+                    for tax in order_line[0].tax_id:
+                        tax_ids.append(tax.id)
 
-            inv_line.write({'price_unit':order_line[0].price_unit, 'discount': order_line[0].discount, 'invoice_line_tax_ids': [(6,0,tax_ids)]   })
-            inv_obj.compute_taxes()
+                inv_line.write({'price_unit':order_line[0].price_unit, 'discount': order_line[0].discount, 'invoice_line_tax_ids': [(6,0,tax_ids)]   })
+                inv_obj.compute_taxes()
         return True
 
     def get_account_properties(self):
